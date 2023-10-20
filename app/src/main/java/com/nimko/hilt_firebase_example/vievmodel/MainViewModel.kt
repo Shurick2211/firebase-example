@@ -11,9 +11,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.nimko.hilt_firebase_example.model.ServiceProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
@@ -51,7 +48,7 @@ class MainViewModel @Inject constructor():ViewModel() {
 
     }
 
-    fun deleteProvider(provider: ServiceProvider){
+    fun deleteProvider(provider: Any){
         providers.value?.get(provider)?.let { providersRef.child(it).removeValue() }
     }
 

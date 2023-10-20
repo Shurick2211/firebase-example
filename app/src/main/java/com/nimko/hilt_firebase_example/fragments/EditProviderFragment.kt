@@ -66,9 +66,9 @@ class EditProviderFragment @Inject constructor(): Fragment() {
     companion object {
         const val PROVIDER = "provider"
         @JvmStatic
-        fun newInstance(provider: ServiceProvider) = EditProviderFragment().apply {
+        fun newInstance(provider: Any) = EditProviderFragment().apply {
             arguments = Bundle().apply {
-                this.putSerializable(PROVIDER, provider)
+                this.putSerializable(PROVIDER, provider as ServiceProvider)
             }
         }
 

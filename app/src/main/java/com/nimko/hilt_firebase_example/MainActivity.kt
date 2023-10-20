@@ -21,14 +21,13 @@ class MainActivity : AppCompatActivity(), NavigationFrag, ActionBarChange {
 
     private lateinit var binding: ActivityMainBinding
    // private val viewModel:MainViewModel by viewModels()
-   @Inject lateinit var listFragment:ListProvidersFragment
    @Inject lateinit var editFragment:EditProviderFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        val listFragment = ListProvidersFragment<ServiceProvider>()
         if(savedInstanceState == null){
             supportFragmentManager
                 .beginTransaction()
@@ -57,7 +56,7 @@ class MainActivity : AppCompatActivity(), NavigationFrag, ActionBarChange {
 
 
 
-    override fun launchEditProvider(provider: ServiceProvider?) {
+    override fun launchEditProvider(provider: Any?) {
         if (provider == null) launch(editFragment)
         else {
             val fragment = EditProviderFragment.newInstance(provider)
@@ -65,7 +64,7 @@ class MainActivity : AppCompatActivity(), NavigationFrag, ActionBarChange {
         }
     }
 
-    override fun listProviderDetails(item: ServiceProvider) {
+    override fun listProviderDetails(item: Any) {
         val fragment = DetailProviderFragment.newInstance(item)
         launch(fragment)
     }

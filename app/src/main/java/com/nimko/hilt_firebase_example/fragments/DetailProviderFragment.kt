@@ -40,10 +40,10 @@ class DetailProviderFragment : Fragment() {
     companion object {
         private const val ITEM = "item"
         @JvmStatic
-        fun newInstance(item:ServiceProvider) =
+        fun newInstance(item: Any) =
             DetailProviderFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(ITEM, item)
+                    putSerializable(ITEM, item as ServiceProvider)
                 }
             }
     }

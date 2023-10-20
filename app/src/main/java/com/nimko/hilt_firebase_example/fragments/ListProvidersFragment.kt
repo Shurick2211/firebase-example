@@ -10,16 +10,15 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.nimko.hilt_firebase_example.R
 import com.nimko.hilt_firebase_example.databinding.FragmentListBinding
-import com.nimko.hilt_firebase_example.model.ServiceProvider
 import com.nimko.hilt_firebase_example.vievmodel.MainViewModel
 import javax.inject.Inject
 
-class ListProvidersFragment @Inject constructor(): Fragment(), OnClickItem {
+class ListProvidersFragment<T : Any> @Inject constructor(): Fragment(), OnClickItem<T> {
 
     lateinit var binding:FragmentListBinding
     val viewModel by activityViewModels<MainViewModel>()
 
-    val recyclerViewAdapter = ListProvidersRecyclerViewAdapter<ServiceProvider>(this)
+    val recyclerViewAdapter = ListProvidersRecyclerViewAdapter<T>(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +34,7 @@ class ListProvidersFragment @Inject constructor(): Fragment(), OnClickItem {
 
         viewModel.providers.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "observe")
-            recyclerViewAdapter.addCollection(it.keys as MutableSet<Any>)
+            recyclerViewAdapter.addCollection(it.keys as MutableSet<T>)
         })
 
         binding.fab.setOnClickListener {
@@ -53,16 +52,16 @@ class ListProvidersFragment @Inject constructor(): Fragment(), OnClickItem {
         const val TAG = "LPF"
     }
 
-    override fun onClick(item: Any) {
-        navigator().listProviderDetails(item as ServiceProvider)
+    override fun onClick(item: T) {
+        navigator().listProviderDetails(item)
     }
 
-    override fun delete(item: Any) {
-        viewModel.deleteProvider(item as ServiceProvider)
+    override fun delete(item: T) {
+        viewModel.deleteProvider(item)
     }
 
-    override fun edit(item: Any) {
-        navigator().launchEditProvider(item as ServiceProvider)
+    override fun edit(item: T) {
+        navigator().launchEditProvider(item)
     }
 
 

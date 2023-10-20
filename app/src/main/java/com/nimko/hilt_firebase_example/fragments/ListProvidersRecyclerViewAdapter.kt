@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nimko.hilt_firebase_example.databinding.FragmentItemBinding
 import com.nimko.hilt_firebase_example.model.ServiceProvider
 
-class ListProvidersRecyclerViewAdapter<T>(val onClickItem: OnClickItem
+class ListProvidersRecyclerViewAdapter<T:Any>(val onClickItem: OnClickItem<T>
 ) : RecyclerView.Adapter<ListProvidersRecyclerViewAdapter<T>.ViewHolder>() {
 
     private var values: MutableList<T> = ArrayList()
@@ -33,7 +33,7 @@ class ListProvidersRecyclerViewAdapter<T>(val onClickItem: OnClickItem
 
     override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(val binding: FragmentItemBinding, val onClickItem: OnClickItem)
+    inner class ViewHolder(val binding: FragmentItemBinding, val onClickItem: OnClickItem<T>)
         : RecyclerView.ViewHolder(binding.root) {
 
        fun bind(item:T){
@@ -42,11 +42,12 @@ class ListProvidersRecyclerViewAdapter<T>(val onClickItem: OnClickItem
               bindServiceProvider(item)
            }
            binding.card.setOnClickListener {
-               onClickItem.onClick(item as Any)
+               onClickItem.onClick(item)
            }
        }
 
         private fun bindServiceProvider(item: ServiceProvider){
+            item as T
             binding.apply {
                 itemName.text = item.name
                 content.text = item.title
@@ -69,8 +70,8 @@ class ListProvidersRecyclerViewAdapter<T>(val onClickItem: OnClickItem
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addCollection(list: MutableSet<Any>){
-        values = (list as MutableSet<T>).toMutableList()
+    fun addCollection(list: MutableSet<T>){
+        values = list.toMutableList()
         notifyDataSetChanged()
     }
 
