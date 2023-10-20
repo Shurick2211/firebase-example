@@ -63,7 +63,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="Delete" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/editButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                app:layout_constraintBottom_toBottomOf="@+id/del_button"
+                app:layout_constraintEnd_toStartOf="@+id/del_button"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/del_button"
+                app:srcCompat="@android:drawable/ic_menu_edit"
+                android:contentDescription="Edit" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

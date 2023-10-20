@@ -3,10 +3,8 @@ package com.nimko.hilt_firebase_example
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.nimko.hilt_firebase_example.databinding.ActivityMainBinding
 import com.nimko.hilt_firebase_example.fragments.ActionBarChange
 import com.nimko.hilt_firebase_example.fragments.DetailProviderFragment
@@ -21,7 +19,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationFrag, ActionBarChange {
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
    // private val viewModel:MainViewModel by viewModels()
    @Inject lateinit var listFragment:ListProvidersFragment
    @Inject lateinit var editFragment:EditProviderFragment
@@ -48,7 +46,7 @@ class MainActivity : AppCompatActivity(), NavigationFrag, ActionBarChange {
     }
 
 
-    private fun launch(fragment: Fragment){
+    private fun launch(fragment:Fragment){
         Log.d(TAG,"Launch!")
         supportFragmentManager
             .beginTransaction()
@@ -59,8 +57,12 @@ class MainActivity : AppCompatActivity(), NavigationFrag, ActionBarChange {
 
 
 
-    override fun launchEditProvider() {
-        launch(editFragment)
+    override fun launchEditProvider(provider: ServiceProvider?) {
+        if (provider == null) launch(editFragment)
+        else {
+            val fragment = EditProviderFragment.newInstance(provider)
+            launch(fragment)
+        }
     }
 
     override fun listProviderDetails(item: ServiceProvider) {

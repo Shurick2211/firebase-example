@@ -4,5 +4,8 @@
     <string name="Save">Save</string>
     <string name="en_name">Enter name of Provider!</string>
     <string name="en_title">Enter title of Provider!</string>
+    <string name="new_provider">New provider</string>
+    <string name="edit_provider">Edit provider</string>
+    <string name="details">Details</string>
 
 </resources>

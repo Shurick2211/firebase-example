@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.nimko.hilt_firebase_example.R
 import com.nimko.hilt_firebase_example.databinding.FragmentDetailProviderBinding
 import com.nimko.hilt_firebase_example.model.ServiceProvider
 
@@ -32,7 +33,7 @@ class DetailProviderFragment : Fragment() {
             name.text = item.name
             title.text = item.title
         }
-        actionBar().changeActionBar("Details", true)
+        actionBar().changeActionBar(getString(R.string.details), true)
         return binding.root
     }
 

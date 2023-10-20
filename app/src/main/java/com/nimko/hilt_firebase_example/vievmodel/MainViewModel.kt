@@ -55,6 +55,14 @@ class MainViewModel @Inject constructor():ViewModel() {
         providers.value?.get(provider)?.let { providersRef.child(it).removeValue() }
     }
 
+    fun editProvider(itemOld: ServiceProvider, itemNew:ServiceProvider){
+        providers.value?.get(itemOld)?.let {
+            providersRef.child(it).setValue(itemNew)
+        }
+    }
+
+
+
     companion object{
         private const val PROVIDERS = "providers"
         private const val TAG = "VWM"

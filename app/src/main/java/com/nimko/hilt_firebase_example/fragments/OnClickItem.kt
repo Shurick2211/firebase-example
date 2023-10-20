@@ -1,6 +1,9 @@
 package com.nimko.hilt_firebase_example.fragments
 
-interface OnClickItem <T>{
-    fun onClick(item:T)
+import com.nimko.hilt_firebase_example.model.ServiceProvider
+
+interface OnClickItem {
+    fun onClick(item:Any)
     fun delete(item: Any)
+    fun edit(item:Any)
 }

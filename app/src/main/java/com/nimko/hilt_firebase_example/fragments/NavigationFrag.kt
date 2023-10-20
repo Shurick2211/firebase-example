@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import com.nimko.hilt_firebase_example.model.ServiceProvider
 
 interface NavigationFrag {
-    fun launchEditProvider()
+    fun launchEditProvider(provider: ServiceProvider? = null)
     fun listProviderDetails(item:ServiceProvider)
     fun goBack()
 }

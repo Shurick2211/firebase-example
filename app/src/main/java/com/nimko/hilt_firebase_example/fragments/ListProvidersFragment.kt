@@ -14,12 +14,12 @@ import com.nimko.hilt_firebase_example.model.ServiceProvider
 import com.nimko.hilt_firebase_example.vievmodel.MainViewModel
 import javax.inject.Inject
 
-class ListProvidersFragment @Inject constructor(): Fragment(), OnClickItem<ServiceProvider> {
+class ListProvidersFragment @Inject constructor(): Fragment(), OnClickItem {
 
     lateinit var binding:FragmentListBinding
     val viewModel by activityViewModels<MainViewModel>()
 
-    val recyclerViewAdapter = ListProvidersRecyclerViewAdapter(this)
+    val recyclerViewAdapter = ListProvidersRecyclerViewAdapter<ServiceProvider>(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,7 @@ class ListProvidersFragment @Inject constructor(): Fragment(), OnClickItem<Servi
 
         viewModel.providers.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "observe")
-            recyclerViewAdapter.addCollection(it.keys)
+            recyclerViewAdapter.addCollection(it.keys as MutableSet<Any>)
         })
 
         binding.fab.setOnClickListener {
@@ -46,17 +46,23 @@ class ListProvidersFragment @Inject constructor(): Fragment(), OnClickItem<Servi
         return binding.root
     }
 
-    override fun onClick(item: ServiceProvider) {
-        navigator().listProviderDetails(item)
-    }
+
 
 
     companion object {
         const val TAG = "LPF"
     }
 
+    override fun onClick(item: Any) {
+        navigator().listProviderDetails(item as ServiceProvider)
+    }
+
     override fun delete(item: Any) {
         viewModel.deleteProvider(item as ServiceProvider)
+    }
+
+    override fun edit(item: Any) {
+        navigator().launchEditProvider(item as ServiceProvider)
     }
 
 
